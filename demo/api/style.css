@@ -1,0 +1,508 @@
+/* =======================
+   Global Styles & Variables
+   ======================= */
+:root {
+    --font-main: 'Google Sans Text', sans-serif;
+    --color-bg: #007bff; /* Blue background */
+    --color-container: #FFFFFF; /* White containers */
+    --color-header: #0056b3; /* Darker blue for headers */
+    --color-text: #000000; /* Black text */
+    --color-primary: #007bff;
+    --color-primary-hover: #0056b3;
+    --color-secondary: #6c757d;
+    --color-secondary-hover: #5a6268;
+    --color-danger: #dc3545;
+    --color-danger-hover: #c82333;
+    --color-success: #28a745; /* Green for success */
+    --color-error: #dc3545; /* Red for error */
+    --color-border: #dee2e6;
+    --color-grid: #0056b3; /* Blue for game tiles */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    font-family: var(--font-main);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    overflow: hidden; /* Prevents body scroll */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--color-header);
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+p {
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+ul {
+    list-style: none;
+}
+
+input, textarea {
+    font-family: var(--font-main);
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+textarea {
+    resize: none; /* Disable manual resizing */
+}
+
+/* =======================
+   Layout Containers
+   ======================= */
+
+.app-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.screen {
+    width: 100%;
+    height: 100%;
+    max-width: 500px; /* Max width for app feel */
+    max-height: 900px; /* Max height for app feel */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+}
+
+.screen.hidden {
+    display: none;
+}
+
+/* Base white container for most screens */
+.container {
+    width: 100%;
+    height: 100%;
+    background: var(--color-container);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    overflow: hidden; /* Hide internal overflow, use scrollable */
+}
+
+/* Special full-screen layout for game */
+#screen-game {
+    max-width: 900px; /* Allow game screen to be wider */
+    max-height: 100%;
+    justify-content: flex-start;
+    gap: 1rem;
+}
+
+/* Responsive layout for game (side-by-side leaderboard) */
+@media (min-width: 800px) {
+    #screen-game {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+    .game-content-wrapper {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+    .leaderboard-panel {
+        min-width: 250px;
+        max-width: 300px;
+        height: calc(100% - 70px); /* Full height minus header */
+    }
+}
+
+/* =======================
+   Buttons
+   ======================= */
+.btn {
+    font-family: var(--font-main);
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    background-color: var(--color-primary);
+    color: white;
+}
+.btn-primary:hover {
+    background-color: var(--color-primary-hover);
+}
+
+.btn-secondary {
+    background-color: var(--color-secondary);
+    color: white;
+}
+.btn-secondary:hover {
+    background-color: var(--color-secondary-hover);
+}
+
+.btn-danger {
+    background-color: var(--color-danger);
+    color: white;
+}
+.btn-danger:hover {
+    background-color: var(--color-danger-hover);
+}
+
+.btn-submit {
+    background-color: var(--color-success);
+    color: white;
+}
+.btn-submit:hover {
+    background-color: #218838;
+}
+
+.btn-full {
+    width: 100%;
+}
+
+.button-group {
+    display: flex;
+    gap: 1rem;
+}
+
+.button-group-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+/* =======================
+   Popups (Modals)
+   ======================= */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 100;
+}
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--color-container);
+    border-radius: 16px;
+    padding: 2rem;
+    width: 90%;
+    max-width: 400px;
+    z-index: 101;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh; /* Max height for modal */
+}
+
+.popup.hidden, .popup-overlay.hidden {
+    display: none;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 2rem;
+    color: var(--color-secondary);
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.popup header {
+    text-align: center;
+}
+
+.form-group {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+/* =======================
+   Scrollable Elements
+   ======================= */
+.scrollable {
+    overflow-y: auto;
+    max-height: 250px; /* Default scroll height */
+}
+
+/* Specific scroll heights */
+#popup-avatar .scrollable { max-height: 150px; }
+#popup-create .scrollable { max-height: 200px; }
+#screen-lobby .scrollable { max-height: 400px; }
+#screen-results .scrollable { max-height: 300px; }
+.leaderboard-panel { max-height: 200px; }
+@media (min-width: 800px) {
+    .leaderboard-panel { max-height: calc(100vh - 200px); }
+}
+
+/* =======================
+   Special Component Styling
+   ======================= */
+
+/* --- Avatar/Emoji Grid --- */
+.emoji-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+}
+.emoji-grid span {
+    font-size: 1.8rem;
+    text-align: center;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+.emoji-grid span.selected {
+    background-color: var(--color-primary);
+    box-shadow: 0 0 5px var(--color-primary);
+}
+.emoji-grid span:hover {
+    background-color: #f0f0f0;
+}
+
+/* --- Tip Box --- */
+.tip-box {
+    background-color: #f8f9fa;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: left;
+    margin-bottom: 1rem;
+}
+.tip-box p {
+    margin-bottom: 0;
+    font-size: 0.9rem;
+}
+
+/* --- Timer Selection --- */
+.timer-options {
+    display: flex;
+    justify-content: space-around;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+.btn-timer {
+    flex: 1;
+    font-size: 1rem;
+    padding: 1rem 0.5rem;
+    background: #f0f0f0;
+    border: 2px solid var(--color-border);
+    border-radius: 8px;
+    cursor: pointer;
+}
+.btn-timer.selected {
+    background: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary-hover);
+}
+
+/* --- Lobby --- */
+.game-code-box {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--color-header);
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+.player-list {
+    text-align: left;
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    flex-grow: 1; /* Makes it fill space */
+}
+.player-list li {
+    font-size: 1.25rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--color-border);
+}
+.player-list li:last-child {
+    border-bottom: none;
+}
+.player-list li span {
+    display: inline-block;
+    width: 40px; /* Aligns names */
+}
+
+/* --- Game Screen --- */
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 0.5rem;
+}
+.stat-box {
+    flex: 1;
+    background: var(--color-container);
+    border-radius: 8px;
+    padding: 0.5rem;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+.stat-box strong {
+    font-size: 0.75rem;
+    color: var(--color-header);
+}
+.stat-box span {
+    font-size: 1.5rem;
+    font-weight: 700;
+    display: block;
+}
+
+/* --- WordHunt Grid --- */
+.wordhunt-grid {
+    display: grid;
+    grid-template-columns: repeat(15, 1fr);
+    grid-template-rows: repeat(15, 1fr);
+    background: var(--color-container);
+    border: 2px solid var(--color-grid);
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    width: 100%;
+    aspect-ratio: 1 / 1; /* Makes it a perfect square */
+    touch-action: none; /* Disables pinch-zoom on grid */
+}
+.grid-tile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(0.5rem, 3.5vw, 1.2rem); /* Responsive font size */
+    font-weight: 500;
+    color: var(--color-grid);
+    border: 1px solid #e0e0e0;
+    cursor: pointer;
+    user-select: none; /* Prevents text selection */
+    aspect-ratio: 1 / 1; /* Ensures tiles are square */
+}
+.grid-tile.selected {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+.submission-area {
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
+}
+.submission-area input {
+    flex-grow: 1;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    background: #f0f0f0;
+}
+
+.leaderboard-panel {
+    width: 100%;
+    background: var(--color-container);
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    overflow-y: auto;
+}
+
+/* --- GM Control Panel --- */
+.gm-timer {
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--color-header);
+    margin-bottom: 1rem;
+}
+
+/* --- Results Screen --- */
+.winners-chart {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    height: 200px;
+    gap: 1rem;
+    border-bottom: 2px solid var(--color-header);
+    margin-bottom: 1.5rem;
+}
+.winner-podium {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80px;
+}
+.winner-podium .podium-bar {
+    width: 100%;
+    background-color: var(--color-secondary);
+    border-radius: 8px 8px 0 0;
+}
+#winner-1 .podium-bar { background-color: #ffd700; } /* Gold */
+#winner-2 .podium-bar { background-color: #c0c0c0; } /* Silver */
+#winner-3 .podium-bar { background-color: #cd7f32; } /* Bronze */
+.winner-podium span {
+    font-weight: 700;
+    padding-top: 0.5rem;
+}
+
+/* --- Message Popups (Success/Error) --- */
+.message-popup {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    z-index: 200;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    opacity: 0;
+    transition: opacity 0.3s ease, top 0.3s ease;
+}
+.message-popup.show {
+    opacity: 1;
+    top: 40px;
+}
+.message-popup.error {
+    background-color: var(--color-error);
+    color: white;
+}
+.message-popup.success {
+    background-color: var(--color-success);
+    color: white;
+}

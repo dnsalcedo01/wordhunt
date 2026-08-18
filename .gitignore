@@ -1,0 +1,13 @@
+# Ignore all JSON game state records
+/games/*.json
+
+# Keep the games directory structure
+!/games/.gitkeep
+
+# Ignore OS-generated files
+.DS_Store
+Thumbs.db
+
+# If you ever add error logs, ignore them too
+*.log
+error_log
