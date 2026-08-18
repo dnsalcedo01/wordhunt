@@ -4,7 +4,7 @@ WordHunt is a lightweight, real-time multiplayer word search game built entirely
 
 ## ✨ Features
 - **Real-Time Multiplayer:** Play instantly with friends using a unique 6-letter game code.
-- **Game Master Controls:** The Game Master (GM) creates the game, inputs words to be guessed, sets the timer, and controls the game flow.
+- **Game Master Controls:** The Game Master (GM) creates the game, inputs words to find, sets the timer, and controls the game flow.
 - **Dynamic Leaderboards:** Live updating scoreboard that ranks players based on total words found, using the speed of their first find as a tie-breaker.
 - **No Database Required:** Game states are securely stored in a lightweight `games/` folder using JSON, with automatic cleanup of old game files.
 - **Responsive Design:** Mobile-friendly UI that scales perfectly to any device.
