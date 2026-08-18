@@ -20,7 +20,7 @@ Since WordHunt uses vanilla PHP, setting it up is incredibly easy.
 ### Installation
 1. Clone this repository into your web server's document root (e.g., `htdocs` for XAMPP):
    ```bash
-   git clone https://github.com/yourusername/wordhunt.git
+   git clone https://github.com/dnsalcedo01/wordhunt.git
    ```
 2. Ensure the `games/` directory has write permissions so the PHP scripts can create and modify JSON game files.
 3. Open your browser and navigate to `http://localhost/wordhunt`.
