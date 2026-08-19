@@ -544,7 +544,9 @@ TRUTH
                 if (secondsLeft <= 0) {
                     secondsLeft = 0;
                     stopClientTimer();
-                    location.reload();
+                    showScreen('setup');
+                    elements.grid.innerHTML = '';
+                    showMessage(elements.demoMessage, "Time is up! Game ended.", "error");
                     return;
                 }
                 const minutes = Math.floor(secondsLeft / 60);
