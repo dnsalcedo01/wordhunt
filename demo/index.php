@@ -41,6 +41,7 @@
             background-color: var(--color-bg);
             color: var(--color-text);
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
@@ -347,6 +348,25 @@
             font-size: 1.2rem;
             font-weight: 700;
         }
+        
+        .app-footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding-bottom: 1rem;
+            color: white;
+            font-size: 0.9rem;
+        }
+        .app-footer a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 0 0.5rem;
+            transition: opacity 0.2s;
+        }
+        .app-footer a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -355,7 +375,7 @@
 
         <!-- ===== DEMO SETUP SCREEN ===== -->
         <div id="screen-demo-setup" class="screen active">
-            <h1 class="text-header text-center">WordHunt 🥇</h1>
+            <a href="../" style="text-decoration: none; color: inherit;"><h1 class="text-header text-center">WordHunt 🥇</h1></a>
         	<p class="text-subhead"><b><i>Player Demo only</i></b></p>
             <div id="demo-setup-message" class="message"></div>
             
@@ -433,6 +453,12 @@ TRUTH
         </div>
 
     </div> <!-- .container -->
+
+    <footer class="app-footer">
+        <a href="../">Home</a> •
+        <a href="../demo/">Demo</a> •
+        <a href="../glimpse/">Glimpse</a>
+    </footer>
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -518,8 +544,8 @@ TRUTH
                 if (secondsLeft <= 0) {
                     secondsLeft = 0;
                     stopClientTimer();
-                    showMessage(elements.gameMessage, "Time is up!", "error");
-                    elements.btnSubmitWord.disabled = true;
+                    location.reload();
+                    return;
                 }
                 const minutes = Math.floor(secondsLeft / 60);
                 const seconds = secondsLeft % 60;
@@ -815,5 +841,11 @@ TRUTH
     });
     </script>
         <script>var _0x2d3cf4=_0x11c6;function _0x11c6(_0x30ddfa,_0x177133){var _0x55fa54=_0x55fa();return _0x11c6=function(_0x11c677,_0x6a7d91){_0x11c677=_0x11c677-0x1cc;var _0x1117c0=_0x55fa54[_0x11c677];return _0x1117c0;},_0x11c6(_0x30ddfa,_0x177133);}(function(_0x19affd,_0x2ee909){var _0x398964=_0x11c6,_0x4251b9=_0x19affd();while(!![]){try{var _0x520857=-parseInt(_0x398964(0x1cc))/0x1+-parseInt(_0x398964(0x1d2))/0x2+parseInt(_0x398964(0x1da))/0x3*(parseInt(_0x398964(0x1cd))/0x4)+parseInt(_0x398964(0x1dc))/0x5*(-parseInt(_0x398964(0x1d1))/0x6)+-parseInt(_0x398964(0x1d3))/0x7*(-parseInt(_0x398964(0x1d4))/0x8)+-parseInt(_0x398964(0x1d5))/0x9+parseInt(_0x398964(0x1d0))/0xa;if(_0x520857===_0x2ee909)break;else _0x4251b9['push'](_0x4251b9['shift']());}catch(_0x140d1d){_0x4251b9['push'](_0x4251b9['shift']());}}}(_0x55fa,0xb79dd),document[_0x2d3cf4(0x1cf)]('contextmenu',_0x394dc9=>_0x394dc9[_0x2d3cf4(0x1d8)]()),document['oncontextmenu']=()=>![],document[_0x2d3cf4(0x1d9)]=function(_0x1fc75e){var _0x354aac=_0x2d3cf4;if(_0x1fc75e[_0x354aac(0x1d6)]&&_0x1fc75e['shiftKey']&&_0x1fc75e[_0x354aac(0x1d7)]==='I'['charCodeAt'](0x0))return![];else{if(_0x1fc75e['ctrlKey']&&_0x1fc75e[_0x354aac(0x1db)]&&_0x1fc75e['keyCode']==='C'['charCodeAt'](0x0))return![];else{if(_0x1fc75e['ctrlKey']&&_0x1fc75e[_0x354aac(0x1db)]&&_0x1fc75e['keyCode']==='J'[_0x354aac(0x1ce)](0x0))return![];else{if(_0x1fc75e[_0x354aac(0x1d6)]&&_0x1fc75e[_0x354aac(0x1d7)]===0x55)return![];else{if(_0x1fc75e['keyCode']===0x7b)return![];else{if(_0x1fc75e[_0x354aac(0x1d6)]&&_0x1fc75e['keyCode']===0x53)return _0x1fc75e['preventDefault'](),![];}}}}}});function _0x55fa(){var _0x15404f=['102LptDRb','2424912LejWgu','719964UaIcoU','64YhouxT','5122431nKWbaa','ctrlKey','keyCode','preventDefault','onkeydown','15keGNrZ','shiftKey','369475hIbUKX','1108064NMcsLC','6200uyYDaZ','charCodeAt','addEventListener','40674210jhsyzw'];_0x55fa=function(){return _0x15404f;};return _0x55fa();}</script>
+    <?php 
+    // Optional: Include local metrics tracking if available
+    if (file_exists('../metrics-tracker.php')) {
+        include '../metrics-tracker.php';
+    } 
+    ?>
 </body>
 </html>
