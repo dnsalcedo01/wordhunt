@@ -1,0 +1,9 @@
+# Block all direct web access to the JSON files in this directory.
+# This prevents information disclosure (reading other players' tokens and word coordinates).
+# PHP scripts will still be able to read and write to this directory securely.
+<IfModule mod_authz_core.c>
+    Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+    Deny from all
+</IfModule>

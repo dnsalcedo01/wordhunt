@@ -133,6 +133,11 @@ function createGame($words, $timer) {
     // Clean up old games first to prevent folder from filling up
     cleanupOldGames();
 
+    // Prevent DoS: Cap the incoming payload to 25 words maximum
+    if (is_array($words) && count($words) > 25) {
+        $words = array_slice($words, 0, 25);
+    }
+
     // 1. Validate words (10-15 words, max 15 chars)
     $filteredWords = [];
     foreach ($words as $word) {
@@ -207,6 +212,9 @@ function enterGame($gameCode, $name, $avatar) {
         return ['success' => false, 'message' => 'Please enter a name.'];
     }
     
+    // Sanitize and limit avatar to prevent Stored XSS and massive payloads
+    $avatar = substr(htmlspecialchars($avatar), 0, 10);
+    
     $playerId = uniqid('p_'); // Generate a unique ID for the player
 
     $gameData['players'][] = [
@@ -243,8 +251,8 @@ function pollState($gameCode, $playerId) {
         $needsSave = true;
     }
 
-    // Clean up if GM times out (give GM 5 seconds)
-    if (isset($gameData['gmLastSeen']) && (time() - $gameData['gmLastSeen'] > 5)) {
+    // Clean up if GM times out (give GM 7 seconds)
+    if (isset($gameData['gmLastSeen']) && (time() - $gameData['gmLastSeen'] > 7)) {
         if ($gameData['status'] === 'waiting' || $gameData['status'] === 'started') {
             $gameData['status'] = 'cancelled';
             writeGameData($gameCode, $gameData);
