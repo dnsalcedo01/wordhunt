@@ -365,13 +365,14 @@
 JOY
 LOVE
 PEACE
-TRUST                    
+TRUST
 FAITH
 GRACE
 WISDOM
 HONOR
 RESPECT
-TRUTH                    </textarea>
+TRUTH
+</textarea>
             </div>
             
             <div class="form-group">

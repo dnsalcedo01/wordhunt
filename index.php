@@ -627,6 +627,7 @@ function generateWordGrid($words, $size = 15) {
             background-color: var(--color-bg);
             color: var(--color-text);
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
@@ -1189,6 +1190,24 @@ function generateWordGrid($words, $size = 15) {
             margin-bottom: 1rem;
         }
 
+        .app-footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding-bottom: 1rem;
+            color: white;
+            font-size: 0.9rem;
+        }
+        .app-footer a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 0 0.5rem;
+            transition: opacity 0.2s;
+        }
+        .app-footer a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -1323,8 +1342,30 @@ function generateWordGrid($words, $size = 15) {
 
     </div> <!-- .container -->
     
+    <footer class="app-footer">
+        <a href="#" id="link-instructions">How to Play</a> •
+        <a href="demo/">Demo</a> •
+        <a href="glimpse/">Glimpse</a>
+    </footer>
+    
 
     <!-- ====== POPUPS ====== -->
+    
+    <!-- ===== INSTRUCTIONS POPUP ===== -->
+    <div id="popup-instructions" class="popup hidden">
+        <div class="popup-content">
+            <span class="popup-close">&times;</span>
+            <h2 class="text-header text-center">How to Play WordHunt</h2>
+            
+            <h3 style="margin-top: 1rem; color: var(--color-header);">For Players</h3>
+            <p style="font-size: 0.95rem; margin-bottom: 0.5rem;">Join the game by entering the game code. Play the game by searching for the words, then select the first letter and last letter of the word found. The player who finds the most words before the timer runs out, wins!</p>
+            
+            <h3 style="margin-top: 1rem; color: var(--color-header);">For Game Masters</h3>
+            <p style="font-size: 0.95rem; margin-bottom: 0.5rem;">You may show the words to find through the <a href="glimpse/" style="color: var(--color-header); font-weight: bold;">Glimpse</a> page before starting. Glimpse will display the words depending on your chosen time: 30 seconds or 1 minute.</p>
+            <p style="font-size: 0.95rem; margin-bottom: 0.5rem;">To create a game, input the words to find, set the timer, and proceed to the waiting room to display the game code for all players to join. You can start the game when all players have joined the waiting room. You can also cancel or end the game early at any time.</p>
+            <p style="font-size: 0.95rem; margin-bottom: 0.5rem;">If the game ends (by time out or manually), the Results Leaderboard will show the podium for 1st, 2nd & 3rd alongside the overall rankings of all players. If the game is cancelled, all players will be redirected to the homepage.</p>
+        </div>
+    </div>
     
     <!-- ===== JOIN GAME POPUP ===== -->
     <div id="popup-join-game" class="popup hidden">
@@ -1395,6 +1436,5 @@ function generateWordGrid($words, $size = 15) {
 
     <!-- JavaScript File -->
     <script src="game.js"></script>
-
 </body>
 </html>

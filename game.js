@@ -29,12 +29,14 @@ document.addEventListener('DOMContentLoaded', () => {
         enterName: document.getElementById('popup-enter-name'),
         create: document.getElementById('popup-create-game'),
         loading: document.getElementById('popup-loading'),
+        instructions: document.getElementById('popup-instructions'),
     };
 
     const elements = {
         // Home
         btnShowJoin: document.getElementById('btn-show-join'),
         btnShowCreate: document.getElementById('btn-show-create'),
+        linkInstructions: document.getElementById('link-instructions'),
 
         // Popups
         popupCloseBtns: document.querySelectorAll('.popup-close'),
@@ -380,6 +382,12 @@ document.addEventListener('DOMContentLoaded', () => {
         showMessage(elements.createMessage, '', 'error');
         showPopup('create');
     });
+    if (elements.linkInstructions) {
+        addUniversalListener(elements.linkInstructions, (e) => {
+            e.preventDefault();
+            showPopup('instructions');
+        });
+    }
     elements.popupCloseBtns.forEach(btn => {
         addUniversalListener(btn, () => showPopup(null, false)); // REPLACED
     });
