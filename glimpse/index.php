@@ -222,9 +222,8 @@
 
         <!-- ===== GLIMPSE SETUP SCREEN ===== -->
         <div id="screen-setup" class="screen active">
-            <a href="../" style="text-decoration: none; color: inherit;"><h1 class="text-header text-center">WordHunt 🥇</h1></a>
-            <h2 class="text-header text-center" style="margin-top: 0; font-size: 1.5rem;">GLIMPSE 👁‍🗨</h2>
-            <p class="text-subhead text-center"><b><i>Words to find</i></b> 🧐</p>
+            <a href="../" style="text-decoration: none; color: inherit;"><h1 class="text-header text-center" style="margin-bottom: 0;">WordHunt 🥇</h1></a>
+            <p class="text-center" style="margin-top: 0; margin-bottom: 1rem; font-size: 0.85rem; color: #555;"><b>GLIMPSE 👁‍🗨 | <i>Words to find</i> 🧐</b></p>
             
             <div id="glimpse-message" class="message"></div>
             

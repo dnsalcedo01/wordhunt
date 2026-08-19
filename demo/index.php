@@ -375,8 +375,8 @@
 
         <!-- ===== DEMO SETUP SCREEN ===== -->
         <div id="screen-demo-setup" class="screen active">
-            <a href="../" style="text-decoration: none; color: inherit;"><h1 class="text-header text-center">WordHunt 🥇</h1></a>
-        	<p class="text-subhead"><b><i>Player Demo only</i></b></p>
+            <a href="../" style="text-decoration: none; color: inherit;"><h1 class="text-header text-center" style="margin-bottom: 0;">WordHunt 🥇</h1></a>
+        	<p class="text-center" style="margin-top: 0; margin-bottom: 1rem; font-size: 0.85rem; color: #555;"><b><i>Player Demo only</i></b></p>
             <div id="demo-setup-message" class="message"></div>
             
             <div class="form-group">
