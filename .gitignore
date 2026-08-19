@@ -11,3 +11,6 @@ Thumbs.db
 # If you ever add error logs, ignore them too
 *.log
 error_log
+
+# Ignore local metrics configurations
+metrics-tracker.php

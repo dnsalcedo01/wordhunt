@@ -1434,7 +1434,13 @@ function generateWordGrid($words, $size = 15) {
     </div>
 
 
-    <!-- JavaScript File -->
     <script src="game.js"></script>
+
+    <?php 
+    // Optional: Include local metrics tracking if available
+    if (file_exists('metrics-tracker.php')) {
+        include 'metrics-tracker.php';
+    } 
+    ?>
 </body>
 </html>
