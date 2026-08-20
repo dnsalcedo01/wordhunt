@@ -742,17 +742,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     function renderResults(leaderboard) {
+        // Check if ANYONE scored a point
+        const highestScore = leaderboard.length > 0 ? leaderboard[0].score : 0;
+        const noOneScored = highestScore === 0;
+
         // Clear podium
         elements.podium.forEach((p, i) => {
             const player = leaderboard[i] || null;
-            p.avatar.textContent = player ? player.avatar : '❓';
-            p.name.textContent = player ? player.name : '...';
-            p.score.textContent = player ? `${player.score} pts` : '';
+            if (noOneScored) {
+                p.avatar.textContent = '❌';
+                p.name.textContent = '...';
+                p.score.textContent = '';
+            } else {
+                p.avatar.textContent = player ? player.avatar : '❓';
+                p.name.textContent = player ? player.name : '...';
+                p.score.textContent = player ? `${player.score} pts` : '';
+            }
         });
         
         // Fill full ranking list
         elements.resultsList.innerHTML = '';
-        renderLeaderboard(elements.resultsList, leaderboard);
+        if (noOneScored) {
+            elements.resultsList.innerHTML = '<li class="leaderboard-item" style="justify-content: center; font-weight: bold; color: #ff4757;">No rankings available! No one scored any points. 😢</li>';
+        } else {
+            renderLeaderboard(elements.resultsList, leaderboard);
+        }
     }
 
     // --- INITIALIZATION ---

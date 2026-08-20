@@ -1,0 +1,33 @@
+# Disable directory listing to prevent information disclosure
+Options -Indexes
+
+# Block access to all hidden files and directories (e.g. .git, .gitignore, .htaccess)
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+# Block access to markdown files (README, plans, tasks) and logs
+<FilesMatch "\.(md|log)$">
+    Require all denied
+</FilesMatch>
+
+# Block direct web access to the secret metrics tracker file
+<FilesMatch "^metrics-tracker\.php$">
+    Require all denied
+</FilesMatch>
+
+# Fallback for Apache 2.2
+<IfModule !mod_authz_core.c>
+    <FilesMatch "^\.">
+        Order allow,deny
+        Deny from all
+    </FilesMatch>
+    <FilesMatch "\.(md|log)$">
+        Order allow,deny
+        Deny from all
+    </FilesMatch>
+    <FilesMatch "^metrics-tracker\.php$">
+        Order allow,deny
+        Deny from all
+    </FilesMatch>
+</IfModule>

@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
@@ -270,9 +271,15 @@ TRUTH
     </div> <!-- .container -->
 
     <footer class="app-footer">
-        <a href="../">Home</a> •
-        <a href="../demo/">Demo</a> •
-        <a href="../glimpse/">Glimpse</a>
+        <div>
+            <a href="../">Home</a> •
+            <a href="../demo/">Demo</a> •
+            <a href="../glimpse/">Glimpse</a>
+        </div>
+        <div style="margin-top: 0.5rem; font-size: 1.5rem;">
+            <a href="https://github.com/dnsalcedo01" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="https://dansalcedo.xyz" target="_blank" title="Website"><i class="fa-solid fa-globe"></i></a>
+        </div>
     </footer>
 
    <script>
