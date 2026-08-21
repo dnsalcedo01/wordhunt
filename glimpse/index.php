@@ -310,22 +310,6 @@ TRUTH
             btnGoBack: document.getElementById('btn-go-back'),
         };
 
-        // --- UNIVERSAL EVENT LISTENER (FOR IOS/BRAVE) ---
-        function addUniversalListener(element, callback) {
-            if (!element) return;
-            let isHandlingEvent = false;
-            const onEvent = (e) => {
-                if (isHandlingEvent) {
-                    e.preventDefault();
-                    return;
-                }
-                isHandlingEvent = true;
-                callback(e);
-                setTimeout(() => { isHandlingEvent = false; }, 300);
-            };
-            element.addEventListener('touchstart', onEvent, { passive: true });
-            element.addEventListener('click', onEvent);
-        }
 
         // --- SCREEN MANAGEMENT ---
         function showScreen(screenName) {
@@ -409,7 +393,7 @@ TRUTH
         function init() {
             
             // Setup Listeners
-            addUniversalListener(elements.btnStartGlimpse, () => {
+            elements.btnStartGlimpse.addEventListener('click', () => {
                 stopAllTimers();
                 
                 G_WORDS = elements.glimpseWords.value.split('\n')
@@ -434,7 +418,7 @@ TRUTH
                 showScreen('glimpse');
             });
             
-            addUniversalListener(elements.btnGoBack, () => {
+            elements.btnGoBack.addEventListener('click', () => {
                 stopAllTimers();
                 showScreen('setup');
                 showMessage(elements.glimpseMessage, '', 'error');
@@ -442,7 +426,7 @@ TRUTH
 
             // Button group listeners
             elements.totalTimeOptions.querySelectorAll('.btn-timer-option').forEach(btn => {
-                addUniversalListener(btn, () => {
+                btn.addEventListener('click', () => {
                     elements.totalTimeOptions.querySelectorAll('.btn-timer-option').forEach(b => b.classList.remove('selected'));
                     btn.classList.add('selected');
                 });

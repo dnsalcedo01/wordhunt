@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let G_SELECTED_CELL_1 = null; // { r, c, el }
     let G_SELECTED_CELL_2 = null;
     let G_FOUND_WORDS_COORDS = []; // Stores {start, end} of found words
+    let G_LAST_CELL_CLICK_TIME = {};
 
     const AVATARS = ['🤣', '😜', '😍', '😇', '🧐', '😎', '🤨', '🤡', '👽', '🤖', '👾', '🐷', '🐶', '🐼', '🐯', '🐠', '❤️', '💛', '💙', '🤍'];
 
@@ -158,47 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-     // --- REVISED: Universal Event Listener ---
-    /**
-     * Adds a universal event listener for both 'click' and 'touchstart'
-     * to ensure responsiveness on all devices and browsers (like iOS/Brave).
-     * Prevents the 300ms "ghost click" delay on touch devices.
-     * @param {HTMLElement} element The DOM element to attach the listener to.
-     * @param {Function} callback The function to execute on tap/click.
-     */
-    function addUniversalListener(element, callback) {
-        if (!element) return; // Safety check
-
-        let isHandlingEvent = false;
-
-        const onEvent = (e) => {
-            // If we are already handling an event (e.g., click fired after touchstart)
-            // prevent its default action and stop.
-            if (isHandlingEvent) {
-                e.preventDefault();
-                return;
-            }
-
-            isHandlingEvent = true;
-            callback(e); // Run the actual function
-
-            // Reset the flag after a standard "ghost click" delay
-            setTimeout(() => {
-                isHandlingEvent = false;
-            }, 300); // 300ms is the standard delay
-        };
-
-        // We make touchstart PASSIVE. This tells the browser we will NOT
-        // preventDefault() on it, which keeps scrolling fast and happy.
-        // The touchstart will fire the event for a fast UI response.
-        element.addEventListener('touchstart', onEvent, { passive: true });
-
-        // The click event will either fire 300ms later (on old browsers)
-        // or immediately (on new browsers with viewport tag).
-        // In either case, our isHandlingEvent flag will catch it and stop it.
-        element.addEventListener('click', onEvent);
-    }
-    // --- End of revised helper ---
+     
 
 
 
@@ -352,6 +313,7 @@ document.addEventListener('DOMContentLoaded', () => {
         G_SELECTED_CELL_1 = null;
         G_SELECTED_CELL_2 = null;
         G_FOUND_WORDS_COORDS = [];
+        G_LAST_CELL_CLICK_TIME = {};
 
         stopPolling();
         stopClientTimer();
@@ -374,29 +336,29 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- EVENT HANDLERS ---
 
     // Home Screen
-    addUniversalListener(elements.btnShowJoin, () => { // REPLACED
+    elements.btnShowJoin.addEventListener('click', () => { // REPLACED
         showMessage(elements.joinMessage, '', 'error');
         showPopup('join');
     });
-    addUniversalListener(elements.btnShowCreate, () => { // REPLACED
+    elements.btnShowCreate.addEventListener('click', () => { // REPLACED
         showMessage(elements.createMessage, '', 'error');
         showPopup('create');
     });
     if (elements.linkInstructions) {
-        addUniversalListener(elements.linkInstructions, (e) => {
+        elements.linkInstructions.addEventListener('click', (e) => {
             e.preventDefault();
             showPopup('instructions');
         });
     }
     elements.popupCloseBtns.forEach(btn => {
-        addUniversalListener(btn, () => showPopup(null, false)); // REPLACED
+        btn.addEventListener('click', () => showPopup(null, false)); // REPLACED
     });
     
     // Play Again
-    addUniversalListener(elements.btnPlayAgain, resetGame); // REPLACED
+    elements.btnPlayAgain.addEventListener('click', resetGame); // REPLACED
 
     // Join Game Flow
-    addUniversalListener(elements.btnJoinGame, async () => { // REPLACED
+    elements.btnJoinGame.addEventListener('click', async () => { // REPLACED
         const gameCode = elements.joinGameCodeInput.value.toUpperCase();
         if (!gameCode || gameCode.length !== 6) {
             showMessage(elements.joinMessage, 'Please enter a 6-character game code.', 'error');
@@ -412,7 +374,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    addUniversalListener(elements.btnEnterGame, async () => { // REPLACED
+    elements.btnEnterGame.addEventListener('click', async () => { // REPLACED
         const name = elements.enterPlayerNameInput.value;
         const selectedAvatar = document.querySelector('.avatar-option.selected');
         
@@ -449,13 +411,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Create Game Flow
     elements.timerOptions.forEach(btn => {
-        addUniversalListener(btn, () => { // REPLACED
+        btn.addEventListener('click', () => { // REPLACED
             elements.timerOptions.forEach(b => b.classList.remove('selected'));
             btn.classList.add('selected');
         });
     });
     
-    addUniversalListener(elements.btnCreateGame, async () => { // REPLACED
+    elements.btnCreateGame.addEventListener('click', async () => { // REPLACED
         const words = elements.createGameWordsInput.value.split('\n').filter(w => w.trim().length > 0);
         const timer = document.querySelector('.btn-timer-option.selected').dataset.time;
         
@@ -485,7 +447,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     // GM Controls
-    addUniversalListener(elements.btnStartGame, async () => { // REPLACED
+    elements.btnStartGame.addEventListener('click', async () => { // REPLACED
         const response = await apiRequest({ action: 'startGame', gameCode: G_GAME_CODE });
         if (response.success) {
             G_GAME_STATE = response.gameData;
@@ -497,7 +459,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
-    addUniversalListener(elements.btnEndGame, async () => { // REPLACED
+    elements.btnEndGame.addEventListener('click', async () => { // REPLACED
         if (!confirm('Are you sure you want to end the game early?')) return;
         
         const response = await apiRequest({ action: 'endGame', gameCode: G_GAME_CODE });
@@ -509,7 +471,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    addUniversalListener(elements.btnCancelGame, async () => { // REPLACED
+    elements.btnCancelGame.addEventListener('click', async () => { // REPLACED
         if (!confirm('Are you sure you want to cancel this game? This cannot be undone.')) return;
         
         const response = await apiRequest({ action: 'cancelGame', gameCode: G_GAME_CODE });
@@ -521,7 +483,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     // Player Game Screen Logic
-    addUniversalListener(elements.btnSubmitWord, async () => { // REPLACED
+    elements.btnSubmitWord.addEventListener('click', async () => { // REPLACED
         if (!G_SELECTED_CELL_1 || !G_SELECTED_CELL_2) return;
         
         const response = await apiRequest({
@@ -565,7 +527,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const div = document.createElement('div');
             div.className = 'avatar-option';
             div.textContent = avatar;
-            addUniversalListener(div, () => { // REPLACED
+            div.addEventListener('click', () => { // REPLACED
                 document.querySelectorAll('.avatar-option').forEach(el => el.classList.remove('selected'));
                 div.classList.add('selected');
             });
@@ -649,13 +611,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 cell.textContent = letter;
                 cell.dataset.r = r;
                 cell.dataset.c = c;
-                addUniversalListener(cell, () => onCellClick(cell, r, c)); // REPLACED
+                cell.addEventListener('click', () => onCellClick(cell, r, c)); // REPLACED
                 elements.grid.appendChild(cell);
             });
         });
     }
     
     function onCellClick(cell, r, c) {
+        const now = Date.now();
+        const cellKey = `${r}-${c}`;
+        if (G_LAST_CELL_CLICK_TIME[cellKey] && now - G_LAST_CELL_CLICK_TIME[cellKey] < 400) return;
+        G_LAST_CELL_CLICK_TIME[cellKey] = now;
+
         if (!G_SELECTED_CELL_1) {
             // First selection
             G_SELECTED_CELL_1 = { r, c, el: cell };

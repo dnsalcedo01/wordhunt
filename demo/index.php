@@ -474,6 +474,7 @@ TRUTH
         let G_TIMER_INTERVAL = null;
         let G_SELECTED_CELL_1 = null;
         let G_SELECTED_CELL_2 = null;
+        let G_LAST_CELL_CLICK_TIME = {};
         
         let G_DEMO_GAME = {
             wordLocations: {},
@@ -506,23 +507,6 @@ TRUTH
             gameLeaderboardScore: document.querySelector('#game-leaderboard-list .leaderboard-score'),
             btnResetDemo: document.getElementById('btn-reset-demo'),
         };
-
-        // --- UNIVERSAL EVENT LISTENER (FOR IOS/BRAVE) ---
-        function addUniversalListener(element, callback) {
-            if (!element) return;
-            let isHandlingEvent = false;
-            const onEvent = (e) => {
-                if (isHandlingEvent) {
-                    e.preventDefault();
-                    return;
-                }
-                isHandlingEvent = true;
-                callback(e);
-                setTimeout(() => { isHandlingEvent = false; }, 300);
-            };
-            element.addEventListener('touchstart', onEvent, { passive: true });
-            element.addEventListener('click', onEvent);
-        }
 
         // --- SCREEN MANAGEMENT ---
         function showScreen(screenName) {
@@ -655,7 +639,7 @@ TRUTH
                     cell.textContent = letter;
                     cell.dataset.r = r;
                     cell.dataset.c = c;
-                    addUniversalListener(cell, () => onCellClick(cell, r, c));
+                    cell.addEventListener('click', () => onCellClick(cell, r, c));
                     elements.grid.appendChild(cell);
                 });
             });
@@ -663,6 +647,11 @@ TRUTH
 
         // --- GAME LOGIC ---
         function onCellClick(cell, r, c) {
+            const now = Date.now();
+            const cellKey = `${r}-${c}`;
+            if (G_LAST_CELL_CLICK_TIME[cellKey] && now - G_LAST_CELL_CLICK_TIME[cellKey] < 400) return;
+            G_LAST_CELL_CLICK_TIME[cellKey] = now;
+
             if (G_DEMO_GAME.wordsFound.length >= G_DEMO_GAME.maxWords) return;
 
             if (!G_SELECTED_CELL_1) {
@@ -789,13 +778,13 @@ TRUTH
         function init() {
             // Setup Screen Listeners
             elements.timerOptions.forEach(btn => {
-                addUniversalListener(btn, () => {
+                btn.addEventListener('click', () => {
                     elements.timerOptions.forEach(b => b.classList.remove('selected'));
                     btn.classList.add('selected');
                 });
             });
 
-            addUniversalListener(elements.btnStartDemo, () => {
+            elements.btnStartDemo.addEventListener('click', () => {
                 const words = elements.demoWordsInput.value.split('\n')
                     .map(w => w.trim().toUpperCase().replace(/[^A-Z]/g, ''))
                     .filter(w => w.length > 0 && w.length <= 15);
@@ -832,9 +821,9 @@ TRUTH
             });
             
             // Game Screen Listeners
-            addUniversalListener(elements.btnSubmitWord, handleSubmitWord);
+            elements.btnSubmitWord.addEventListener('click', handleSubmitWord);
             
-            addUniversalListener(elements.btnResetDemo, () => {
+            elements.btnResetDemo.addEventListener('click', () => {
                 if (confirm("Are you sure you want to reset the demo?")) {
                     stopClientTimer();
                     showScreen('setup');
