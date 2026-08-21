@@ -230,18 +230,7 @@
             
             <div class="form-group">
                 <label for="glimpse-words" class="form-label">Enter 10-15 words (one per line)</label>
-                <textarea id="glimpse-words" class="form-control" placeholder="Enter one word per line..." style="height: 150px;">
-JOY
-LOVE
-PEACE
-TRUST
-FAITH
-GRACE
-WISDOM
-HONOR
-RESPECT
-TRUTH
-</textarea>
+                <textarea id="glimpse-words" class="form-control" placeholder="Enter one word per line..." style="height: 150px;"></textarea>
             </div>
             
             <div class="form-group">
