@@ -31,8 +31,5 @@ Since WordHunt uses vanilla PHP, setting it up is incredibly easy.
 3. **Start:** The Game Master starts the game. Players finds the word on the grid by selecting the first and last letter of it.
 4. **Win:** The player who finds the most words before the timer runs out wins!
 
-## 📜 License & Monetization
-
-This project is licensed under the **MIT License**. 
 ---
 *Built with ❤️ using vanilla PHP, JS, and CSS.*
