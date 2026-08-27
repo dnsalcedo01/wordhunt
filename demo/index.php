@@ -663,7 +663,7 @@ TRUTH
                 clearSelection();
             } else if (!G_SELECTED_CELL_2) {
                 G_SELECTED_CELL_2 = { r, c, el: cell };
-                cell.classList.add('selected');
+                highlightSelectionLine(G_SELECTED_CELL_1, G_SELECTED_CELL_2);
                 elements.wordPreview.textContent = getWordFromSelection(G_SELECTED_CELL_1, G_SELECTED_CELL_2);
                 elements.btnSubmitWord.disabled = false;
             } else {
@@ -701,8 +701,7 @@ TRUTH
         }
 
         function clearSelection() {
-            if (G_SELECTED_CELL_1) G_SELECTED_CELL_1.el.classList.remove('selected');
-            if (G_SELECTED_CELL_2) G_SELECTED_CELL_2.el.classList.remove('selected');
+            document.querySelectorAll('.grid-cell.selected').forEach(el => el.classList.remove('selected'));
             G_SELECTED_CELL_1 = null;
             G_SELECTED_CELL_2 = null;
             elements.wordPreview.textContent = '(Select 2 letters)';
@@ -722,6 +721,30 @@ TRUTH
                 const c = c1 + (i * stepC);
                 const cell = document.querySelector(`.grid-cell[data-r="${r}"][data-c="${c}"]`);
                 if (cell) cell.classList.add('found');
+            }
+        }
+
+        function highlightSelectionLine(cell1, cell2) {
+            if (!cell1 || !cell2) return;
+            const r1 = cell1.r, c1 = cell1.c;
+            const r2 = cell2.r, c2 = cell2.c;
+            const dr = r2 - r1, dc = c2 - c1;
+
+            if (dr !== 0 && dc !== 0 && Math.abs(dr) !== Math.abs(dc)) {
+                cell1.el.classList.add('selected');
+                cell2.el.classList.add('selected');
+                return;
+            }
+
+            const stepR = Math.sign(dr);
+            const stepC = Math.sign(dc);
+            const len = Math.max(Math.abs(dr), Math.abs(dc));
+
+            for (let i = 0; i <= len; i++) {
+                const r = r1 + (i * stepR);
+                const c = c1 + (i * stepC);
+                const cell = document.querySelector(`.grid-cell[data-r="${r}"][data-c="${c}"]`);
+                if (cell) cell.classList.add('selected');
             }
         }
 
