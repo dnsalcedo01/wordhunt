@@ -18,10 +18,5 @@ metrics-tracker.php
 # Ignore markdown files (except README) and AI artifacts
 *.md
 !README.md
-artifacts/
-
-# Ignore markdown files (except README) and AI artifacts
-*.md
-!README.md
 PROJECT_MEMORY.md
 artifacts/
