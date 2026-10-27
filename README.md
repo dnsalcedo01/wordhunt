@@ -15,7 +15,7 @@ WordHunt is a lightweight, real-time multiplayer word search game built entirely
 Since WordHunt uses vanilla PHP, setting it up is incredibly easy. 
 
 ### Prerequisites
-- A local web server with PHP support (e.g., XAMPP, WAMP, MAMP, or Laravel Valet).
+- A local web server with PHP support (e.g., XAMPP, WAMP, MAMP, LAMP, or the built-in PHP development server).
 
 ### Installation
 1. Clone this repository into your web server's document root (e.g., `htdocs` for XAMPP):
