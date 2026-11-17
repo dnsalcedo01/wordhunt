@@ -1,4 +1,5 @@
 # WordHunt 🕵️‍♂️📝
+<img width="1731" height="800" alt="image" src="https://github.com/user-attachments/assets/6c525757-e94d-4226-bae3-78a6f004c57e" />
 
 WordHunt is a lightweight, real-time multiplayer word search game built entirely with vanilla PHP, JavaScript, and CSS. It features a completely database-free architecture, relying on JSON file storage and file-locking to handle concurrent player actions efficiently.
 
